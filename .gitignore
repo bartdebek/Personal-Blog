@@ -1,0 +1,3 @@
+**/*.pyc
+/photoblog/__pycache__
+/myblog/settings.py
