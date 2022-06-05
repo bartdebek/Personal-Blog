@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block header %}
+<header class="py-1 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Myślibusz</h1>
+            <p class="lead mb-0">Archiwum {{ year|date:"Y" }}</p>
+        </div>
+    </div>
+  </header>
+{% endblock %}
+{% block content %}
+<div class="col-lg-8">
+    {% for post in object_list %}
+            <div class="card border-0" style="width: 40rem;">
+                <a href="/photoblog/post_detail/{{post.id}}">
+                <img src="{{post.image.url}}" class="img-thumbnail rounded mx-auto d-block" alt="{{post.title}}">
+                </a>
+                <div class="card-body">
+                  <h5 class="card-title" align="center">{{ post.title }}</h5>
+                  <div class="card-footer">
+                    <small class="text-muted">Added {{ post.get_date }} </small>
+                  </div>
+                </div>
+            </div>
+    {% endfor %}
+  </div>
+{% endblock %}

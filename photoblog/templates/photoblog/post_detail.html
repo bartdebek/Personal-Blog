@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% load crispy_forms_tags %}
+{% block header %}
+<header class="py-1 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Myślibusz</h1>
+            <p class="lead mb-0">{{ post.title }}</p>
+        </div>
+    </div>
+</header>
+{% endblock %}
+{% block content %}
+<div class="col-lg-8">
+    <div class="card mb-4">
+        <a href="/photoblog/post_detail/{{post.id}}"><img class="card-img-top" src="{{post.image.url}}" alt="..." /></a>
+        <div class="card-body px-xxl-5">
+                <h1 class="text-center">{{ post.title}}</h1>
+                <p class="card-text justify-content-start">{{ post.content | linebreaks }}</p>
+                <!-- comments -->
+                <h5>{{ comments.count }} comments</h5>
+                <ul class="list-group">
+                {% for comment in comments %}
+                    <div class="comments" style="padding: 10px;">
+                    <p class="font-weight-bold">
+                    <li class="list-group-item">
+                    {{ comment.name }}
+                        <span class=" text-muted font-weight-normal">
+                        {{ comment.created_on }}
+                        </span>
+                        </p>
+                    {{ comment.body | linebreaks }}
+                    </li>
+                    </div>
+                {% endfor %}
+                </ul>
+        </div>
+    </div>
+    <div class="card-body">
+        {% if new_comment %}
+        <div class="alert alert-success" role="alert">
+        Your comment is awaiting moderation
+        </div>
+        {% else %}
+        <h3>Leave a comment</h3>
+        <form method="post" style="margin-top: 1.3em;">
+        {% csrf_token %}
+        {{ comment_form |crispy }}
+        <button type="submit" class="btn btn-dark  btn-lg">Submit</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock  %}

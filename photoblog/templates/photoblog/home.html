@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% load humanize %}
+{% load static %}
+{% block header %}
+<header class="py-1 bg-light border-bottom mb-4">
+    <div class="container">
+        <div class="text-center my-5">
+            <h1 class="fw-bolder">Myślibusz</h1>
+            <p class="lead mb-0">Strona główna</p>
+        </div>
+    </div>
+  </header>
+{% endblock %}
+{% block content %}
+    <div class="col-lg-8">
+    {% for post in latest_posts_list %}
+        <div class="card mb-4">
+            <a href="/photoblog/post_detail/{{post.id}}"><img class="card-img-top" src="{{post.image.url}}" alt="..." /></a>
+            <div class="card-body px-xxl-5">
+                <h1 class="card-title" align="center">{{ post.title }}</h1>
+                <p class="card-text justify-content-start">{{ post.content | linebreaks | slice:":400"}} <a href="/photoblog/post_detail/{{post.id}}">...czytaj dalej</a></p>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        {% if post.comments.count != 0 %}
+                        <a href="/photoblog/post_detail/{{post.id}}"><img src="{% static 'photoblog/chat_icon.png' %}"></a>
+                        <align="left">{{ post.comments.count | intword }}
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item">
+                        Views {{ post.blog_views.count | intword }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% endfor %} 
+    </div>
+{% endblock %}
+
