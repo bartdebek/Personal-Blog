@@ -20,6 +20,7 @@
                 <p class="card-text justify-content-start">{{ post.content | linebreaks }}</p>
                 <!-- comments -->
                 <h5>{{ comments.count }} comments</h5>
+                <h5>{{ post.blog_views }} views</h5>
                 <ul class="list-group">
                 {% for comment in comments %}
                     <div class="comments" style="padding: 10px;">

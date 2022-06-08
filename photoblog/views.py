@@ -1,4 +1,5 @@
 from django.views.generic import ListView,YearArchiveView
+from matplotlib.style import context
 from photoblog.models import Post,Comment
 from django.http import HttpResponse
 from django.template import loader
@@ -9,12 +10,10 @@ from .forms import CommentForm
 def HomeView(request):
     latest_posts_list = Post.objects.order_by('-created_date')[:5]
     comments = Comment.objects.filter(active=True)
-    post_views = Post.blog_views
     template = loader.get_template('photoblog/home.html')
     context = {
         'latest_posts_list': latest_posts_list,
         'comments' : comments,
-        'post_views' : post_views,
     }
 
     return HttpResponse(template.render(context, request))
@@ -36,7 +35,7 @@ def post_detail(request,pk):
     blog_object=Post.objects.get(pk=pk)
     blog_object.blog_views=blog_object.blog_views+1
     blog_object.save()
-
+    
 # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -51,8 +50,12 @@ def post_detail(request,pk):
     else:
         comment_form = CommentForm()
 
-    return render(request, template_name, {'post': post,
-                                        'comments': comments,
-                                        'new_comment': new_comment,
-                                        'comment_form': comment_form})
+    context = {
+        'post': post,
+        'comments': comments,
+        'new_comment': new_comment,
+        'comment_form': comment_form,
+        }
+
+    return render(request, template_name, context)
 

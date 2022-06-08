@@ -14,9 +14,9 @@
 {% block content %}
 <div class="col-lg-8">
     {% for post in object_list %}
-            <div class="card border-0" style="width: 40rem;">
+            <div class="card border-0">
                 <a href="/photoblog/post_detail/{{post.id}}">
-                <img src="{{post.image.url}}" class="img-thumbnail rounded mx-auto d-block" alt="{{post.title}}">
+                <img src="{{post.image.url}}" class="rounded img-fluid" alt="{{post.title}}">
                 </a>
                 <div class="card-body">
                   <h5 class="card-title" align="center">{{ post.title }}</h5>
