@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.humanize.templatetags import humanize
 import datetime
+from django.template.defaultfilters import slugify
+
+from jupyterlab_server import slugify
 
 
 now = datetime.datetime.now()
@@ -19,6 +22,9 @@ class Post(models.Model):
     image = models.ImageField(upload_to='image/%Y/%m/%d')
     likes = models.ManyToManyField(User, related_name='blogpost_like')
     blog_views = models.IntegerField(default=0)
+
+    def slug(self):
+        return slugify(self.title)
 
     class Meta:
         ordering = ['-created_date']

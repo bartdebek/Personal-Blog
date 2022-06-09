@@ -5,6 +5,9 @@
 {% block header %}
 <header class="py-1 bg-light border-bottom mb-4">
     <div class="container">
+        <p align="right">
+            Witaj {{request.user.username}}!
+        </p>
     </div>
   </header>
 {% endblock %}
@@ -24,7 +27,8 @@
                         {% endif %}
                     </li>
                     <li class="list-group-item">
-                        {{ post.blog_views | intword }} Views 
+                        <img src="{% static 'photoblog/view_icon.png' %}" height="25">
+                        {{ post.blog_views | intword }} 
                     </li>
                 </ul>
             </div>

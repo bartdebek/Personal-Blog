@@ -15,8 +15,9 @@
                 <h1 class="text-center">{{ post.title}}</h1>
                 <p class="card-text justify-content-start">{{ post.content | linebreaks }}</p>
                 <!-- comments -->
-                <h5>{{ comments.count }} comments</h5>
-                <h5>{{ post.blog_views }} views</h5>
+                <h6 align="center">Autor: {{ post.author }}</h6>
+                <h5 class="border" align="center">{{ comments.count }} comments</h5>
+                <h5 class="border" align="center">{{ post.blog_views }} views</h5>
                 <ul class="list-group">
                 {% for comment in comments %}
                     <div class="comments" style="padding: 10px;">
