@@ -21,7 +21,7 @@ def HomeView(request):
 # Archive page
 class ArticleYearArchiveView(YearArchiveView):
     queryset = Post.objects.all()
-    date_field = "created_date"
+    date_field = "original_creation_date"
     make_object_list = True
     allow_future = True
     

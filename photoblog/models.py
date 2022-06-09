@@ -1,11 +1,16 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.humanize.templatetags import humanize
+import datetime
+
+
+now = datetime.datetime.now()
 
 # Create your models here.
 class Post(models.Model):
-    created_date = models.DateTimeField(auto_now_add=True)
+    created_date = models.DateTimeField(auto_now_add=True, editable=True)
     updated_date = models.DateTimeField(auto_now=True)
+    original_creation_date = models.DateTimeField(default=now)
     content = models.TextField()
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
