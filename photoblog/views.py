@@ -1,13 +1,18 @@
-from django.views.generic import ListView,YearArchiveView
+from django.views.generic import ListView,YearArchiveView,CreateView
 from matplotlib.style import context
 from photoblog.models import Post,Comment
 from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render,get_object_or_404
 from .forms import CommentForm
+from django.contrib.auth.forms import UserCreationForm
+from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
-# Home page
-def HomeView(request):
+# HOME PAGE
+def home_view(request):
     latest_posts_list = Post.objects.order_by('-created_date')[:5]
     comments = Comment.objects.filter(active=True)
     template = loader.get_template('photoblog/home.html')
@@ -18,24 +23,26 @@ def HomeView(request):
 
     return HttpResponse(template.render(context, request))
 
-# Archive page
+# ARCHIVE PAGE
 class ArticleYearArchiveView(YearArchiveView):
     queryset = Post.objects.all()
-    date_field = "original_creation_date"
+    date_field = "created_date"
     make_object_list = True
     allow_future = True
     
 
-# Post detail page
+# POST DETAIL PAGE
 def post_detail(request,pk):
     template_name = 'post_detail.html'
     post = get_object_or_404(Post,pk=pk)
+    # COMMENTS
     comments = post.comments.filter(active=True)
     new_comment = None
+    # VIEWS
     blog_object=Post.objects.get(pk=pk)
     blog_object.blog_views=blog_object.blog_views+1
     blog_object.save()
-    
+   
 # Comment posted
     if request.method == 'POST':
         comment_form = CommentForm(data=request.POST)
@@ -59,3 +66,23 @@ def post_detail(request,pk):
 
     return render(request, template_name, context)
 
+# SIGN UP PAGE
+class SignUpView(CreateView):
+
+    form_class = UserCreationForm
+    success_url = reverse_lazy('login')
+    template_name = 'photoblog/signup.html'
+
+# PROFILE PAGE
+@login_required
+def profile_page(request):
+    template = loader.get_template('photoblog/profile.html')
+    
+    return render(request, template)
+
+# LOGGED OUT VIEW
+def signout(request):
+    template_name = 'logged_out.html'
+
+    return render(request,template_name)
+    

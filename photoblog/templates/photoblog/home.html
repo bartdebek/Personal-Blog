@@ -5,9 +5,11 @@
 {% block header %}
 <header class="py-1 bg-light border-bottom mb-4">
     <div class="container">
-        <p align="right">
+        <h5 align="center">
+            {% if user.is_authenticated %}
             Witaj {{request.user.username}}!
-        </p>
+            {% endif %}
+        </h5>
     </div>
   </header>
 {% endblock %}

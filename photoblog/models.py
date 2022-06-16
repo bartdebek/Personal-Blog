@@ -9,18 +9,19 @@ from jupyterlab_server import slugify
 
 now = datetime.datetime.now()
 
-# Create your models here.
+# BLOG POSTS
 class Post(models.Model):
-    created_date = models.DateTimeField(auto_now_add=True, editable=True)
+    created_date = models.DateTimeField(default=now) 
+    # Not using auto_add_now here 
+    # because posts are migrated form other site 
+    # and original creation date has to be preserved
     updated_date = models.DateTimeField(auto_now=True)
-    original_creation_date = models.DateTimeField(default=now)
     content = models.TextField()
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True)
     author = models.ForeignKey(User, on_delete=models.CASCADE,related_name='blog_posts')
     public = models.BooleanField(default=True)
     image = models.ImageField(upload_to='image/%Y/%m/%d')
-    likes = models.ManyToManyField(User, related_name='blogpost_like')
     blog_views = models.IntegerField(default=0)
 
     def slug(self):
@@ -38,12 +39,14 @@ class Post(models.Model):
     def get_year(self):
         return self.created_date.year
 
+# BLOG IMAGES
 class BlogImage (models.Model):
     blog = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='photoblog/static/photoblog/')
     description = models.CharField(max_length=100)
     place_tag = models.CharField(max_length=100)
 
+# BLOG COMMENTS
 class Comment(models.Model):
     post = models.ForeignKey(Post,on_delete=models.CASCADE,related_name='comments')
     name = models.CharField(max_length=80)

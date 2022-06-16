@@ -23,6 +23,7 @@ app_name = 'photoblog'
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('photoblog/',include('photoblog.urls')),
+    path('photoblog/',include('photoblog.urls'),name='index'),
     path('',RedirectView.as_view(url='photoblog/')),
+    path('accounts/',include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
