@@ -20,7 +20,7 @@
             <a href="/photoblog/post_detail/{{post.id}}"><img class="card-img-top" src="{{post.image.url}}" alt="..." /></a>
             <div class="card-body px-xxl-5">
                 <h1 class="card-title" align="center">{{ post.title }}</h1>
-                <p class="card-text justify-content-start">{{ post.content | linebreaks | slice:":400"}} <a href="/photoblog/post_detail/{{post.id}}">...czytaj dalej</a></p>
+                <p class="card-text justify-content-start">{{ post.content | linebreaks | truncatewords:40 }} <a href="/photoblog/post_detail/{{post.id}}">czytaj dalej</a></p>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
                         {% if post.comments.count != 0 %}
@@ -30,7 +30,7 @@
                     </li>
                     <li class="list-group-item">
                         <img src="{% static 'photoblog/view_icon.png' %}" height="25">
-                        {{ post.blog_views | intword }} views
+                        {{ post.blog_views | intword }} wyświetleń
                     </li>
                 </ul>
             </div>

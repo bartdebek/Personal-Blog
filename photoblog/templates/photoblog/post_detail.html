@@ -16,8 +16,8 @@
                 <p class="card-text justify-content-start">{{ post.content | linebreaks }}</p>
                 <!-- comments -->
                 <h6 align="center">Autor: {{ post.author }}</h6>
-                <h5 class="border" align="center">{{ comments.count }} comments</h5>
-                <h5 class="border" align="center">{{ post.blog_views }} views</h5>
+                <h5 class="border" align="center">{{ comments.count }} komentarzy</h5>
+                <h5 class="border" align="center">{{ post.blog_views }} wyświetleń</h5>
                 <ul class="list-group">
                 {% for comment in comments %}
                     <div class="comments" style="padding: 10px;">
@@ -38,14 +38,14 @@
     <div class="card-body">
         {% if new_comment %}
         <div class="alert alert-success" role="alert">
-        Your comment is awaiting moderation
+        Twój komentarz czeka na zatwierdzenie
         </div>
         {% else %}
-        <h3>Leave a comment</h3>
+        <h3>Zostaw komentarz</h3>
         <form method="post" style="margin-top: 1.3em;">
         {% csrf_token %}
         {{ comment_form |crispy }}
-        <button type="submit" class="btn btn-dark  btn-lg">Submit</button>
+        <button type="submit" class="btn btn-dark  btn-lg">Prześlij</button>
         </form>
         {% endif %}
     </div>

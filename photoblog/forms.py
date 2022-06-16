@@ -6,7 +6,8 @@ from django.utils.translation import gettext_lazy as _
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
-        fields = ('name', 'email', 'body')
+        fields = ('name', 'body')
         labels = {
-            'body': _('Comment'),
+            'body': _('Komentarz'),
+            'name':_('Nazwa Użytkownika'),
         }

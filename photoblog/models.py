@@ -39,7 +39,7 @@ class Post(models.Model):
     def get_year(self):
         return self.created_date.year
 
-# BLOG IMAGES
+# BLOG IMAGES - unused
 class BlogImage (models.Model):
     blog = models.ForeignKey(Post, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='photoblog/static/photoblog/')
