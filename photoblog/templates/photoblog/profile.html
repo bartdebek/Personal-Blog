@@ -4,12 +4,15 @@
 {% block header %}
 <header class="py-1 bg-light border-bottom mb-4">
     <div class="container">
+        <div class="text-center my-5">
+            <p class="lead mb-0">Twój profil</p>
+        </div>
     </div>
 </header>
 {% endblock %}
 {% block content %}
 <div class="col-lg-8">
-    <h1>Witaj na swoim profilu {{user.username}}</h1>
+    <h4>Witaj na swoim profilu {{user.username}}</h4>
 </div>
 
 

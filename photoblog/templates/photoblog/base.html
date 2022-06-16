@@ -32,12 +32,17 @@
                         </ul>
                     <li class="nav-item">
                         {% if user.is_authenticated %}
+                        <a class="nav-link" aria-current="page" href="{% url 'photoblog:profile' %}">Twoje Konto</a>
+                    </li>
+                    <li>
                         <a class="nav-link" aria-current="page" href="{% url 'logout' %}">Wyloguj</a>
+                    </li>
                         {% else %}
+                    <li>
                         <a class="nav-link" aria-current="page" href="{% url 'login' %}">Zaloguj</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="{% url 'photoblog:signup' %}">Załóż konto</a>
+                        <a class="nav-link" aria-current="page" href="{% url 'photoblog:signup' %}">Załóż Konto</a>
                     </li>
                     {% endif %}
                     </li>
@@ -83,8 +88,16 @@
                     </div>
                     <!-- Side widget-->
                     <div class="card mb-4">
-                        <div class="card-header">Side Widget</div>
-                            <div class="card-body">You can put anything you want inside of these side widgets. They are easy to use, and feature the Bootstrap 5 card component!</div>
+                        <div class="card-header">Najpopularniejsze wpisy</div>
+                            <div class="card-body">
+                                <ul>
+                                    {% for post in most_popular_posts%}
+                                        <li>
+                                            <a href="/photoblog/post_detail/{{post.id}}">{{post.title}}</a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                     </div>
             </div>

@@ -14,11 +14,13 @@ from django.contrib.auth import logout
 # HOME PAGE
 def home_view(request):
     latest_posts_list = Post.objects.order_by('-created_date')[:5]
+    most_popular_posts = Post.objects.order_by('-blog_views')[:5]
     comments = Comment.objects.filter(active=True)
     template = loader.get_template('photoblog/home.html')
     context = {
         'latest_posts_list': latest_posts_list,
         'comments' : comments,
+        'most_popular_posts' : most_popular_posts
     }
 
     return HttpResponse(template.render(context, request))
@@ -76,7 +78,7 @@ class SignUpView(CreateView):
 # PROFILE PAGE
 @login_required
 def profile_page(request):
-    template = loader.get_template('photoblog/profile.html')
+    template = 'profile.html'
     
     return render(request, template)
 

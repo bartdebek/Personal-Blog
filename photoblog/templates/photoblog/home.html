@@ -5,11 +5,13 @@
 {% block header %}
 <header class="py-1 bg-light border-bottom mb-4">
     <div class="container">
-        <h5 align="center">
-            {% if user.is_authenticated %}
-            Witaj {{request.user.username}}!
-            {% endif %}
-        </h5>
+        <div class="text-center my-5">
+            <p class="lead mb-0">
+                {% if user.is_authenticated %}
+                Witaj {{request.user.username}}!
+                {% endif %}
+            </p>
+        </div>
     </div>
   </header>
 {% endblock %}
@@ -38,4 +40,3 @@
     {% endfor %} 
     </div>
 {% endblock %}
-
