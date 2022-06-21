@@ -1,7 +1,8 @@
+import datetime
+
 from django.db import models
 from django.contrib.auth.models import User
 from django.contrib.humanize.templatetags import humanize
-import datetime
 from django.template.defaultfilters import slugify
 
 from jupyterlab_server import slugify
@@ -12,7 +13,7 @@ now = datetime.datetime.now()
 # BLOG POSTS
 class Post(models.Model):
     created_date = models.DateTimeField(default=now) 
-    # Not using auto_add_now here 
+    # Not using created_date = models.DateTimeField(auto_now_add=True)
     # because posts are migrated form other site 
     # and original creation date has to be preserved
     updated_date = models.DateTimeField(auto_now=True)
@@ -23,6 +24,7 @@ class Post(models.Model):
     public = models.BooleanField(default=True)
     image = models.ImageField(upload_to='image/%Y/%m/%d')
     blog_views = models.IntegerField(default=0)
+
 
     def slug(self):
         return slugify(self.title)
