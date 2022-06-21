@@ -1,3 +1,4 @@
 /photoblog/__pycache__
 .env
 .gitignore
+db.sqlite3
