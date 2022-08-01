@@ -25,7 +25,10 @@ class PostTests(TestCase):
 
     @classmethod
     def setUpTestData(cls):
-        cls.user = User.objects.create_user(username='testuser', password='12345')
+        cls.user = User.objects.create_user(
+            username='testuser', 
+            password='12345'
+        )
 
         cls.post = Post.objects.create(
             content = 'Test text',
