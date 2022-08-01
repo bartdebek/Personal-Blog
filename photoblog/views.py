@@ -1,5 +1,4 @@
-from django.views.generic import ListView,YearArchiveView,CreateView
-from matplotlib.style import context
+from django.views.generic import YearArchiveView,CreateView
 from photoblog.models import Post,Comment
 from django.http import HttpResponse
 from django.template import loader
@@ -7,9 +6,7 @@ from django.shortcuts import render,get_object_or_404
 from .forms import CommentForm
 from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import logout
 
 # HOME PAGE
 def home_view(request):
