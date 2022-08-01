@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 
+from .models import Post,User
 
 class HomePageTests(TestCase):
     def setUp(self):
@@ -20,3 +21,21 @@ class HomePageTests(TestCase):
         self.assertNotContains(self.response, 'I should not be here')
     
 
+class PostTests(TestCase):
+
+    @classmethod
+    def setUpTestData(cls):
+        cls.user = User.objects.create_user(username='testuser', password='12345')
+
+        cls.post = Post.objects.create(
+            content = 'Test text',
+            title = 'Test title',
+            author = cls.user
+        )
+
+    def test_post_listing(self):
+        self.assertEqual(f'{self.post.content}','Test text')
+        self.assertEqual(f'{self.post.title}','Test title')
+        self.assertEqual(self.post.blog_views,0)
+        self.assertEqual(self.post.public,True)
+        
